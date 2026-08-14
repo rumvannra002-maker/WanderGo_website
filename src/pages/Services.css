@@ -1,0 +1,307 @@
+/* ==========================================
+   Hero Section ជាមួយ Background និង Gradient
+   ========================================== */
+.services-hero {
+  position: relative;
+  width: 100%;
+  background-color: #111;
+  overflow: hidden;
+  text-align: center;
+}
+
+.services-hero__media {
+  position: relative;
+  width: 100%;
+  line-height: 0; /* បំបាត់ khoảng trống ខាងក្រោមរូបភាព */
+}
+
+.services-hero__media img {
+  width: 100%;
+  height: clamp(320px, 55vw, 550px); /* កំណត់កម្ពស់ថេរតាមតម្រូវការ (អាចសារ៉េ 400px ឬ 500px តាមចិត្ត) */
+  object-fit: cover; /* បង្ហាញពេញប្លង់ស្អាត មិនសល់ចន្លោះខ្មៅ */
+  object-position: center bottom; /* ទាញផ្តោតលើផ្នែកខាងក្រោម (កន្លែងមនុស្សឈរលើកដៃ) */
+  display: block;
+}
+.services-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.35), 
+    rgba(0, 0, 0, 0.45)
+  );
+  pointer-events: none;
+}
+
+.services-hero__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.services-hero .eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.services-hero h1 { 
+  color: var(--cream, #fdfbf7); 
+  max-width: 28ch; 
+  margin: 0 auto;
+  font-size: clamp(1.5rem, 3vw + 1rem, 2.2rem);
+  line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================
+   Service Cards Section
+   ========================================== */
+.service-card {
+  padding: 28px;
+  border-radius: var(--radius);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.service-card .service-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 168, 150, 0.1);
+  color: var(--jade);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.service-card h3 { 
+  color: var(--jade); 
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+/* ==========================================
+   Pricing Section
+   ========================================== */
+.pricing-grid { 
+  margin-top: 40px; 
+}
+
+.price-card {
+  background: rgba(247, 240, 226, 0.05);
+  border: 1px solid rgba(247, 240, 226, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 36px 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.price-card:hover {
+  border-color: rgba(247, 240, 226, 0.4);
+}
+
+.price-card.is-featured {
+  background: #ffffff;
+  color: var(--ink);
+  border: 2px solid var(--saffron);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.price-card.is-featured:hover {
+  transform: translateY(-14px);
+}
+
+.price-card.is-featured h3,
+.price-card.is-featured .price-card__price { 
+  color: var(--ink); 
+}
+
+.price-card:not(.is-featured) h3 { 
+  color: var(--cream); 
+}
+
+.price-card:not(.is-featured) ul li { 
+  color: #dcece4; 
+}
+
+.price-card__badge {
+  position: absolute;
+  top: -14px; 
+  right: 24px;
+  background: var(--saffron);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price-card__price { 
+  font-family: var(--font-display); 
+  font-size: 2.5rem; 
+  font-weight: 700;
+  margin: 12px 0 24px; 
+}
+
+.price-card ul { 
+  list-style: none; 
+  padding: 0; 
+  margin: 0 0 32px; 
+  flex: 1; 
+}
+
+.price-card li { 
+  padding: 10px 0; 
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1); 
+  font-size: 0.95rem; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-card.is-featured li {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   Booking Section
+   ========================================== */
+.booking {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 56px;
+  align-items: center;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.booking__intro p { 
+  max-width: 42ch; 
+  color: #666; 
+  line-height: 1.6; 
+}
+
+.booking__form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px; 
+  padding: 36px;
+  background: #ffffff;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.booking__form label { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px; 
+  font-weight: 600; 
+  font-size: 0.9rem; 
+  color: var(--ink-soft); 
+}
+
+.booking__form input, 
+.booking__form select {
+  padding: 14px 16px;
+  border: 1.5px solid rgba(33, 27, 21, 0.12);
+  border-radius: var(--radius);
+  background: #fcfcfc;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.booking__form input:focus, 
+.booking__form select:focus {
+  border-color: var(--jade);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 168, 150, 0.1);
+}
+
+/* ==========================================
+   Buttons & Notification Messages
+   ========================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn--primary {
+  background: var(--jade);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 168, 150, 0.3);
+}
+
+.btn--full { 
+  width: 100%; 
+}
+
+.booking__msg { 
+  margin: 8px 0 0; 
+  font-weight: 600; 
+  padding: 12px;
+  border-radius: var(--radius);
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.booking__msg.is-success { 
+  color: #0f5132; 
+  background-color: #d1e7dd; 
+}
+
+.booking__msg.is-error { 
+  color: #842029; 
+  background-color: #f8d7da; 
+}
+
+/* ==========================================
+   Responsive Styles
+   ========================================== */
+@media (max-width: 800px) {
+  .booking { 
+    grid-template-columns: 1fr; 
+    gap: 32px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .price-card.is-featured { 
+    transform: none; 
+  }
+  .price-card.is-featured:hover { 
+    transform: none; 
+  }
+}

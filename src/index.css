@@ -1,0 +1,146 @@
+/* ===== Design tokens =====
+   Green-led palette: rice-paddy / jungle green as the single brand color,
+   layered over warm neutrals. Legacy variable names are kept (saffron,
+   jade, clay, sandstone) so every component that already references them
+   automatically follows the new green system — only their values changed. */
+:root {
+  --ink: #20261f;          /* near-black, softly green-tinted for cohesion */
+  --cream: #f6f5ef;        /* warm off-white background */
+  --sandstone: #a7a08c;    /* muted neutral, used sparingly for borders/labels */
+  --saffron: #2f7a55;      /* PRIMARY green — buttons, links, active states */
+  --jade: #1f4d3a;         /* deep green — dark sections, hover states */
+  --clay: #b3392b;         /* semantic red — reserved for error states only */
+  --cream-dim: #ece9de;
+  --ink-soft: #4a5148;
+
+  --font-display: 'Noto Serif Khmer', 'Fraunces', Georgia, serif;
+  --font-body: 'Noto Sans Khmer', 'Fraunces', system-ui, sans-serif;
+
+  --radius: 6px;
+  --container: 1120px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  margin: 0 0 0.4em;
+  line-height: 1.25;
+}
+
+h1 { font-size: clamp(2.1rem, 4vw, 3.4rem); font-weight: 700; }
+h2 { font-size: clamp(1.6rem, 2.6vw, 2.3rem); font-weight: 600; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+
+p { margin: 0 0 1em; color: var(--ink-soft); }
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+button, input, textarea, select { font-family: inherit; font-size: 1rem; }
+
+:focus-visible {
+  outline: 3px solid var(--saffron);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section { padding: 88px 0; }
+.section--tight { padding: 56px 0; }
+.section--dark { background: var(--ink); color: var(--cream); }
+.section--dark h2, .section--dark h3 { color: var(--cream); }
+.section--dark p { color: #d7cdbb; }
+.section--jade { background: var(--jade); color: var(--cream); }
+.section--jade h2 { color: var(--cream); }
+.section--jade p { color: #dcece4; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--primary { background: var(--saffron); color: var(--ink); }
+.btn--primary:hover { background: #c97b21; }
+.btn--outline { background: transparent; border-color: currentColor; color: inherit; }
+.btn--outline:hover { background: rgba(0,0,0,0.06); }
+.btn--full { width: 100%; }
+
+.tower-divider {
+  width: 100%;
+  height: 46px;
+  display: block;
+}
+
+.grid {
+  display: grid;
+  gap: 28px;
+}
+.grid--2 { grid-template-columns: repeat(2, 1fr); }
+.grid--3 { grid-template-columns: repeat(3, 1fr); }
+.grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 900px) {
+  .grid--3, .grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .grid--2, .grid--3, .grid--4 { grid-template-columns: 1fr; }
+  .section { padding: 56px 0; }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid rgba(33,27,21,0.08);
+  border-radius: var(--radius);
+  padding: 26px;
+}
+
+.reveal {
+  animation: rise 0.6s ease both;
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}

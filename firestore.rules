@@ -1,0 +1,42 @@
+rules_version = '2';
+
+// Security model requested:
+// - Reader (not logged in): can VIEW everything freely.
+// - Admin/User (logged in): can POST (create) and DELETE content.
+//
+// IMPORTANT: the app already hides the "Add" and "Delete" buttons in the UI
+// for logged-out visitors, but that is only a convenience — anyone could
+// still call Firestore directly from a browser console. These rules are
+// what actually enforce the rule on the server side. Deploy this file with:
+//   firebase deploy --only firestore:rules
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Destinations shown on the Home page ("posts").
+    // Everyone can read. Only signed-in accounts can create/delete.
+    match /destinations/{destinationId} {
+      allow read: if true;
+      allow create, update, delete: if request.auth != null;
+    }
+
+    // Contact form submissions.
+    // Anyone can submit a message; only signed-in accounts can read/manage them.
+    match /messages/{messageId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Booking requests from the Services page.
+    // Anyone can submit a booking; only signed-in accounts can read/manage them.
+    match /bookings/{bookingId} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    // Basic user profile created on signup.
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow create, update: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

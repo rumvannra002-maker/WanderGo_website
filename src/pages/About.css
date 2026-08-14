@@ -1,0 +1,460 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-dark: #fcf8f2;     /* Cream background */
+  --bg-card: #f3eada;     
+  --gold-accent: #2f7a55; /* brand green accent */
+  --text-white: #0f172a;  /* Deep dark text for contrast */
+  --text-dim: #64748b;    /* Muted text */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.fly-app {
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   1. HERO SECTION
+   ========================================== */
+.hero-section { 
+  position: relative; 
+  min-height: 90vh; 
+  /* ប្តូរទៅជាផ្លូវឯកសាររូបភាពនៅក្នុងម៉ាស៊ីនរបស់អ្នក */
+  background: url('images/hero_about.png') center/cover no-repeat; 
+  padding: clamp(40px, 9vw, 64px) clamp(20px, 6vw, 60px) clamp(48px, 10vw, 100px); 
+  display: flex; 
+  align-items: center; 
+  box-sizing: border-box;
+}
+
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, rgba(252, 248, 242, 0.6) 60%, var(--bg-dark) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 40px;
+  align-items: flex-end;
+}
+
+.hero-text h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw + 1rem, 4.2rem);
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text-white);
+}
+
+.hero-text h1 span {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.hero-text p {
+  font-size: 0.9rem;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 440px;
+  margin-bottom: 30px;
+}
+
+.btn-gold-border {
+  background: transparent;
+  border: 1px solid var(--gold-accent);
+  color: var(--text-white);
+  padding: 10px 28px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-gold-border:hover {
+  background: var(--gold-accent);
+  color: #ffffff;
+}
+
+/* Hero Cards */
+.hero-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+.top-card {
+  position: relative;
+  width: 220px;
+  height: 270px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.top-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #0f172a;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.card-details {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 14px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+  color: #ffffff;
+}
+
+.card-details small {
+  font-size: 0.65rem;
+  color: #e2e8f0;
+  display: block;
+}
+
+.card-details h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* ==========================================
+   2. MIDDLE SECTION (UPDATED STATS DESIGN)
+   ========================================== */
+.middle-section {
+  background-color: var(--bg-dark);
+  padding: clamp(24px, 6vw, 40px) clamp(20px, 6vw, 60px) clamp(56px, 10vw, 100px);
+}
+
+.middle-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* Redesigned Stats Component */
+.stats-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 10px 0;
+}
+
+.stat-column {
+  flex: 1;
+  text-align: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+/* Thin Elegant Border Separator */
+.stat-column:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--gold-accent);
+}
+
+.stat-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.stat-label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  letter-spacing: 0.2px;
+}
+
+.stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw + 0.8rem, 2.4rem);
+  font-weight: 700;
+  color: var(--text-white);
+  line-height: 1;
+}
+
+/* Description & Footer Links */
+.description-text {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.badges-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.learn-more-btn {
+  color: var(--text-white);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: gap 0.2s ease;
+}
+
+.learn-more-btn:hover {
+  gap: 12px;
+}
+
+.learn-more-btn span {
+  color: var(--gold-accent);
+}
+
+/* Tilted Photo Stack */
+.photo-stack {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.tilted-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+  background: #fff;
+}
+
+.tilted-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tilted-card.card-1 {
+  width: 130px;
+  height: 200px;
+  transform: rotate(-4deg);
+}
+
+.tilted-card.card-2 {
+  width: 160px;
+  height: 260px;
+  transform: rotate(-1deg);
+}
+
+.tilted-card.card-3 {
+  width: 190px;
+  height: 320px;
+  transform: rotate(3deg);
+}
+
+/* ==========================================
+   3. ABOUT US SECTION
+   ========================================== */
+.about-section {
+  padding: clamp(40px, 8vw, 60px) clamp(20px, 6vw, 60px) clamp(64px, 12vw, 120px);
+  background-color: var(--bg-dark);
+}
+
+.about-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-frame {
+  width: 100%;
+  height: 380px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.about-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-right h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw + 1rem, 4rem);
+  font-style: italic;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text-white);
+}
+
+.about-right p {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+/* ==========================================
+   4. RESPONSIVE DESIGN (@media)
+   ========================================== */
+@media (max-width: 992px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .hero-cards {
+    justify-content: flex-start;
+  }
+
+  .middle-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .middle-container .middle-left {
+    order: 2;
+  }
+
+  .middle-container .photo-stack {
+    order: 1;
+    justify-content: center;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-frame {
+    height: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+    padding-top: 110px;
+  }
+
+  .hero-cards {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .top-card {
+    width: 160px;
+    height: 200px;
+  }
+
+  .stats-header {
+    flex-wrap: wrap;
+    gap: 20px 0;
+  }
+
+  .stat-column {
+    flex: 1 1 50%;
+    margin-bottom: 12px;
+  }
+
+  .stat-column:nth-child(2)::after {
+    display: none;
+  }
+
+  .photo-stack {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-cards {
+    justify-content: center;
+  }
+
+  .top-card {
+    width: 44%;
+    height: 180px;
+  }
+
+  .stats-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .stat-column {
+    text-align: left;
+    padding: 0;
+    width: 100%;
+  }
+
+  .stat-column::after {
+    display: none;
+  }
+
+  .badges-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .photo-stack {
+    justify-content: center;
+  }
+
+  .tilted-card.card-1 { width: 100px; height: 160px; }
+  .tilted-card.card-2 { width: 120px; height: 200px; }
+  .tilted-card.card-3 { width: 140px; height: 240px; }
+}
