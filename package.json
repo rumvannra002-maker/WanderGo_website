@@ -1,9 +1,9 @@
 {
+  "homepage": "https://rumvannra002-maker.github.io/WanderGo_website",
   "name": "angkor-trails",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://rumvannra002-maker.github.io/tourist",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
