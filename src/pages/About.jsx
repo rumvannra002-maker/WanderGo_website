@@ -30,7 +30,7 @@ export default function About() {
           <div className="hero-cards">
             <div className="top-card">
               <span className="card-badge">7.6 ★</span>
-              <img src="/images/images1.jpg" alt="Iceland" />
+              <img src={`${import.meta.env.BASE_URL}images/images1.jpg`} alt="Iceland" />
               <div className="card-details">
                 <small>{a.hero.card1Place}</small>
                 <h4>{a.hero.card1Title}</h4>
@@ -39,7 +39,7 @@ export default function About() {
 
             <div className="top-card">
               <span className="card-badge">8.5 ★</span>
-              <img src="/images/images3.jpg" alt="Hawaii" />
+              <img src={`${import.meta.env.BASE_URL}images/images3.jpg`} alt="Hawaii" />
               <div className="card-details">
                 <small>{a.hero.card2Place}</small>
                 <h4>{a.hero.card2Title}</h4>
@@ -96,13 +96,13 @@ export default function About() {
 
           <div className="photo-stack">
             <div className="tilted-card card-1">
-              <img src="/images/ភ្នំវល្លិ៍.jpg" alt="Mountain" />
+              <img src={`${import.meta.env.BASE_URL}images/ភ្នំវល្លិ៍.jpg`} alt="Mountain" />
             </div>
             <div className="tilted-card card-2">
-              <img src="/images/temple1.jpg" alt="Beach" />
+              <img src={`${import.meta.env.BASE_URL}images/temple1.jpg`} alt="Beach" />
             </div>
             <div className="tilted-card card-3">
-              <img src="/images/images2.jpg" alt="Machu Picchu" />
+              <img src={`${import.meta.env.BASE_URL}images/images2.jpg`} alt="Machu Picchu" />
             </div>
           </div>
 
@@ -113,7 +113,7 @@ export default function About() {
       <section className="about-section">
         <div className="about-grid">
           <div className="about-frame">
-            <img src="/images/12.jpg" alt="Office Space" />
+            <img src={`${import.meta.env.BASE_URL}images/12.jpg`} alt="Office Space" />
           </div>
 
           <div className="about-right">

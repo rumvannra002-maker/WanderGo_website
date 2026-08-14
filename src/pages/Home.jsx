@@ -21,87 +21,87 @@ import './Home.css';
 
 // Hero Section Images
 const heroImages = [
-  '/images/hero1.jpg',
-  '/images/hero2.png',
-  '/images/hero3.jpg',
+  `${import.meta.env.BASE_URL}images/hero1.jpg`,
+  `${import.meta.env.BASE_URL}images/hero2.png`,
+  `${import.meta.env.BASE_URL}images/hero3.jpg`,
 ];
 
 // Bento Cover Images
 const bentoCategories = [
-  { key: 'Thai Foods', size: 'large', cover: '/images/food1.jpg' },
-  { key: 'Beaches', size: 'small', cover: '/images/beach1.jpg' },
-  { key: 'Adventures', size: 'small', cover: '/images/adv1.jpg' },
-  { key: 'Temples', size: 'small', cover: '/images/temple1.jpg' },
-  { key: 'Palaces', size: 'small', cover: '/images/palace1.jpg' },
-  { key: 'Festivals', size: 'large', cover: '/images/festival1.jpeg' },
+  { key: 'Thai Foods', size: 'large', cover: `${import.meta.env.BASE_URL}images/food1.jpg` },
+  { key: 'Beaches', size: 'small', cover: `${import.meta.env.BASE_URL}images/beach1.jpg` },
+  { key: 'Adventures', size: 'small', cover: `${import.meta.env.BASE_URL}images/adv1.jpg` },
+  { key: 'Temples', size: 'small', cover: `${import.meta.env.BASE_URL}images/temple1.jpg` },
+  { key: 'Palaces', size: 'small', cover: `${import.meta.env.BASE_URL}images/palace1.jpg` },
+  { key: 'Festivals', size: 'large', cover: `${import.meta.env.BASE_URL}images/festival1.jpeg` },
 ];
 
 // Gallery Images
 const galleryImageUrls = {
   'Thai Foods': [
-    '/images/food1.jpg',
-    '/images/food2.jpg',
-    '/images/food3.jpg',
-    '/images/food4.jpg',
-    '/images/food5.jpg',
-    '/images/food6.jpg',
-    '/images/food7.jpg',
-    '/images/food8.jpg',
-    '/images/food9.jpg',
-    '/images/food10.jpg',
-    '/images/food11.jpg',
-    '/images/food12.jpg',
-    '/images/food13.jpg',
-    '/images/food14.jpg',
-    '/images/food15.jpg',
+    `${import.meta.env.BASE_URL}images/food1.jpg`,
+    `${import.meta.env.BASE_URL}images/food2.jpg`,
+    `${import.meta.env.BASE_URL}images/food3.jpg`,
+    `${import.meta.env.BASE_URL}images/food4.jpg`,
+    `${import.meta.env.BASE_URL}images/food5.jpg`,
+    `${import.meta.env.BASE_URL}images/food6.jpg`,
+    `${import.meta.env.BASE_URL}images/food7.jpg`,
+    `${import.meta.env.BASE_URL}images/food8.jpg`,
+    `${import.meta.env.BASE_URL}images/food9.jpg`,
+    `${import.meta.env.BASE_URL}images/food10.jpg`,
+    `${import.meta.env.BASE_URL}images/food11.jpg`,
+    `${import.meta.env.BASE_URL}images/food12.jpg`,
+    `${import.meta.env.BASE_URL}images/food13.jpg`,
+    `${import.meta.env.BASE_URL}images/food14.jpg`,
+    `${import.meta.env.BASE_URL}images/food15.jpg`,
 
   ],
   'Beaches': [
-    '/images/beach1.jpg',
-    '/images/beach2.jpg',
-    '/images/beach3.jpg',
-    '/images/beach4.jpg',
-    '/images/beach5.jpg',
-    '/images/beach6.jpg',
-    '/images/beach7.jpg',
+    `${import.meta.env.BASE_URL}images/beach1.jpg`,
+    `${import.meta.env.BASE_URL}images/beach2.jpg`,
+    `${import.meta.env.BASE_URL}images/beach3.jpg`,
+    `${import.meta.env.BASE_URL}images/beach4.jpg`,
+    `${import.meta.env.BASE_URL}images/beach5.jpg`,
+    `${import.meta.env.BASE_URL}images/beach6.jpg`,
+    `${import.meta.env.BASE_URL}images/beach7.jpg`,
   ],
   'Adventures': [
-    '/images/adv1.jpg',
-    '/images/adv2.jpg',
-    '/images/adv3.jpg',
-    '/images/adv4.jpg',
-    '/images/adv5.jpeg',
+    `${import.meta.env.BASE_URL}images/adv1.jpg`,
+    `${import.meta.env.BASE_URL}images/adv2.jpg`,
+    `${import.meta.env.BASE_URL}images/adv3.jpg`,
+    `${import.meta.env.BASE_URL}images/adv4.jpg`,
+    `${import.meta.env.BASE_URL}images/adv5.jpeg`,
   ],
   'Temples': [
-    '/images/temple1.jpg',
-    '/images/temple2.jpg',
-    '/images/temple3.jpg',
-    '/images/temple4.jpg',
-    '/images/temple5.jpg',
-    '/images/temple6.jpg',
-    '/images/temple7.jpg',
-    '/images/temple8.jpg',
-    '/images/temple9.jpg',
-    '/images/temple10.jpg',
-    '/images/temple11.jpg',
-    '/images/temple12.jpg',
-    '/images/temple13.jpg',
+    `${import.meta.env.BASE_URL}images/temple1.jpg`,
+    `${import.meta.env.BASE_URL}images/temple2.jpg`,
+    `${import.meta.env.BASE_URL}images/temple3.jpg`,
+    `${import.meta.env.BASE_URL}images/temple4.jpg`,
+    `${import.meta.env.BASE_URL}images/temple5.jpg`,
+    `${import.meta.env.BASE_URL}images/temple6.jpg`,
+    `${import.meta.env.BASE_URL}images/temple7.jpg`,
+    `${import.meta.env.BASE_URL}images/temple8.jpg`,
+    `${import.meta.env.BASE_URL}images/temple9.jpg`,
+    `${import.meta.env.BASE_URL}images/temple10.jpg`,
+    `${import.meta.env.BASE_URL}images/temple11.jpg`,
+    `${import.meta.env.BASE_URL}images/temple12.jpg`,
+    `${import.meta.env.BASE_URL}images/temple13.jpg`,
 
   ],
   'Palaces': [
-    '/images/palace1.jpg',
-    '/images/palace2.jpg',
-    '/images/palace3.jpg',
+    `${import.meta.env.BASE_URL}images/palace1.jpg`,
+    `${import.meta.env.BASE_URL}images/palace2.jpg`,
+    `${import.meta.env.BASE_URL}images/palace3.jpg`,
   ],
   'Festivals': [
-    '/images/festival1.jpeg',
-    '/images/festival0.jpg',
-    '/images/festival2.jpg',
-    '/images/festival3.jpg',
-    '/images/festival4.jpeg',
-    '/images/festival5.jpg',
-    '/images/festival6.jpg',
-    '/images/festival7.jpg',
+    `${import.meta.env.BASE_URL}images/festival1.jpeg`,
+    `${import.meta.env.BASE_URL}images/festival0.jpg`,
+    `${import.meta.env.BASE_URL}images/festival2.jpg`,
+    `${import.meta.env.BASE_URL}images/festival3.jpg`,
+    `${import.meta.env.BASE_URL}images/festival4.jpeg`,
+    `${import.meta.env.BASE_URL}images/festival5.jpg`,
+    `${import.meta.env.BASE_URL}images/festival6.jpg`,
+    `${import.meta.env.BASE_URL}images/festival7.jpg`,
   ],
 };
 
@@ -259,7 +259,7 @@ export default function Home() {
         <div className="welcome-grid">
           <div className="welcome__image-wrapper">
             <img
-              src="/images/welcome.png"
+              src={`${import.meta.env.BASE_URL}images/welcome.png`}
               alt="Exploring Cambodia"
               className="welcome__main-img"
             />
