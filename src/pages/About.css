@@ -27,14 +27,15 @@
 .hero-section { 
   position: relative; 
   min-height: 90vh; 
-  /* ប្តូរទៅជាផ្លូវឯកសាររូបភាពនៅក្នុងម៉ាស៊ីនរបស់អ្នក */
-  background: url('images/hero_about.png') center/cover no-repeat; 
+  /* background រូបភាពត្រូវផ្លាស់ប្តូរទៅដាក់ក្នុង Inline Style ក្នុង JSX វិញ */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: clamp(40px, 9vw, 64px) clamp(20px, 6vw, 60px) clamp(48px, 10vw, 100px); 
   display: flex; 
   align-items: center; 
   box-sizing: border-box;
 }
-
 
 .hero-overlay {
   position: absolute;
@@ -167,7 +168,6 @@
   align-items: center;
 }
 
-/* Redesigned Stats Component */
 .stats-header {
   display: flex;
   align-items: center;
@@ -182,7 +182,6 @@
   position: relative;
 }
 
-/* Thin Elegant Border Separator */
 .stat-column:not(:last-child)::after {
   content: '';
   position: absolute;
@@ -222,7 +221,6 @@
   line-height: 1;
 }
 
-/* Description & Footer Links */
 .description-text {
   font-size: 0.85rem;
   color: var(--text-dim);
@@ -256,7 +254,6 @@
   color: var(--gold-accent);
 }
 
-/* Tilted Photo Stack */
 .photo-stack {
   display: flex;
   align-items: center;

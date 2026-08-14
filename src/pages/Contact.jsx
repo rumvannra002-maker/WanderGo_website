@@ -29,7 +29,7 @@ export default function Contact() {
     <>
       <section className="contact-hero">
         <div className="contact-hero__media">
-          <img src="images/123.png" alt="Contact Hero" />
+          <img src="images/contact.jpg" alt="Contact Hero" />
           <div className="contact-hero__overlay"></div>
         </div>
         <div className="container contact-hero__content">

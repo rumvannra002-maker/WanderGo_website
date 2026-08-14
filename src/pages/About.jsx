@@ -15,7 +15,10 @@ export default function About() {
   return (
     <div className="fly-app">
       {/* 1. HERO SECTION */}
-      <section className="hero-section">
+      <section 
+        className="hero-section"
+        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}images/hero_about.png)` }}
+      >
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="hero-text">
@@ -57,25 +60,19 @@ export default function About() {
             <div className="stats-header">
 
               <div className="stat-column">
-                <div className="stat-icon">
-                  {/* ... (SVG content kept as is) ... */}
-                </div>
+                <div className="stat-icon"></div>
                 <div className="stat-label">{a.stats[0].label}</div>
                 <div className="stat-val">{a.stats[0].value}</div>
               </div>
 
               <div className="stat-column">
-                <div className="stat-icon">
-                   {/* ... (SVG content kept as is) ... */}
-                </div>
+                <div className="stat-icon"></div>
                 <div className="stat-label">{a.stats[1].label}</div>
                 <div className="stat-val">{a.stats[1].value}</div>
               </div>
 
               <div className="stat-column">
-                <div className="stat-icon">
-                   {/* ... (SVG content kept as is) ... */}
-                </div>
+                <div className="stat-icon"></div>
                 <div className="stat-label">{a.stats[2].label}</div>
                 <div className="stat-val">{a.stats[2].value}</div>
               </div>
