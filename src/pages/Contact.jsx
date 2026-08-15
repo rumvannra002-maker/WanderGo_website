@@ -16,7 +16,7 @@ export default function Contact() {
     e.preventDefault();
     setStatus('saving');
     try {
-      await addDoc(collection(db, 'messages'), { ...form, createdAt: serverTimestamp() });
+      await addDoc(collection(db, 'messages'), { ...form, read: false, createdAt: serverTimestamp() });
       setStatus('success');
       setForm({ fullName: '', email: '', phone: '', message: '' });
     } catch (err) {

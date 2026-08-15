@@ -21,6 +21,20 @@ pages from the assignment brief: Home, About, Services, Contact.
   Logging out asks for confirmation first.
 - **Booking & Contact → Firestore** — the Services booking form writes to
   the `bookings` collection, the Contact form writes to `messages`.
+- **Forgot password** — the Login modal has a "Forgot password?" link that
+  opens a form to email a Firebase password-reset link (no custom email
+  server needed).
+- **Admin Dashboard (`/admin`)** — a separate, sidebar-driven dashboard
+  (Overview, Destinations, Bookings, Messages, Users) for any signed-in
+  account. Overview shows live stat cards (destination count, pending
+  bookings, unread messages, registered users) plus recent activity.
+  Destinations supports full CRUD (add/edit/delete); Bookings lets you
+  change a request's status (pending/confirmed/completed/cancelled) or
+  delete it; Messages lets you mark read/unread or delete; Users lists
+  everyone who has signed up. Reachable from the Navbar's dashboard icon
+  once logged in, or directly at `/admin` — logged-out visitors are
+  redirected to the homepage (and `firestore.rules` enforces the same
+  server-side).
 - **Reader vs Admin/User access** — anyone can browse the site freely. Only
   a signed-in account can add ("Post") or delete a destination on the Home
   page's "Popular Destinations" section — that's the site's editable content.
@@ -104,6 +118,4 @@ token system.
 
 - Richer role management (e.g. a distinct "editor" vs "super admin" role,
   currently every signed-in account can post/delete)
-- Admin dashboard listing all bookings/messages in one place
-- Forgot-password flow
 

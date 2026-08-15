@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
 /* --- 1. LOGIN MODAL COMPONENT --- */
-function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
+function LoginModal({ isOpen, onClose, onSwitchToSignup, onForgotPassword }) {
   const { t } = useLanguage();
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
@@ -80,15 +80,20 @@ function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
             </span>
           </div>
 
-          <label className="checkbox-container">
-            <input
-              type="checkbox"
-              checked={formData.rememberMe}
-              onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
-            />
-            <span className="checkmark"></span>
-            {t.auth.rememberMe}
-          </label>
+          <div className="checkbox-container" style={{ justifyContent: 'space-between', display: 'flex', width: '100%' }}>
+            <label className="checkbox-container" style={{ width: 'auto' }}>
+              <input
+                type="checkbox"
+                checked={formData.rememberMe}
+                onChange={(e) => setFormData({ ...formData, rememberMe: e.target.checked })}
+              />
+              <span className="checkmark"></span>
+              {t.auth.rememberMe}
+            </label>
+            <button type="button" className="auth-switch-link" onClick={onForgotPassword}>
+              {t.auth.forgotPasswordLink}
+            </button>
+          </div>
 
           {error && <p className="modal-error">{error}</p>}
 
@@ -103,6 +108,85 @@ function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
             </button>
           </p>
         </form>
+      </div>
+    </div>
+  );
+}
+
+/* --- FORGOT PASSWORD MODAL COMPONENT --- */
+function ForgotPasswordModal({ isOpen, onClose, onSwitchToLogin }) {
+  const { t } = useLanguage();
+  const { resetPassword } = useAuth();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('idle');
+  const [error, setError] = useState('');
+
+  if (!isOpen) return null;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+    setError('');
+    try {
+      await resetPassword(email);
+      setStatus('sent');
+    } catch (err) {
+      console.error(err);
+      setStatus('idle');
+      setError(t.auth.genericError);
+    }
+  };
+
+  const handleClose = () => {
+    setEmail('');
+    setStatus('idle');
+    setError('');
+    onClose();
+  };
+
+  return (
+    <div className="modal-overlay" onClick={handleClose}>
+      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close-btn" onClick={handleClose}>&times;</button>
+
+        <h2 className="modal-title">{t.auth.forgotTitle}</h2>
+        <p className="modal-subtitle">{t.auth.forgotSubtitle}</p>
+
+        {status === 'sent' ? (
+          <p className="modal-success" style={{ color: 'var(--saffron)', fontWeight: 600 }}>
+            {t.auth.resetLinkSent}
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="modal-form">
+            <div className="input-group">
+              <input
+                type="email"
+                placeholder={t.auth.email}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <span className="input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+            </div>
+
+            {error && <p className="modal-error">{error}</p>}
+
+            <button type="submit" className="login-submit-btn" disabled={status === 'loading'}>
+              {status === 'loading' ? t.auth.sendingResetLink : t.auth.sendResetLink}
+            </button>
+          </form>
+        )}
+
+        <p className="modal-footer">
+          <button type="button" className="auth-switch-link" onClick={onSwitchToLogin}>
+            {t.auth.backToLogin}
+          </button>
+        </p>
       </div>
     </div>
   );
@@ -227,6 +311,7 @@ export default function Navbar() {
   const [langDropdown, setLangDropdown] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
+  const [showForgotModal, setShowForgotModal] = useState(false);
   
   // States សម្រាប់ Search Modal
   const [showSearchModal, setShowSearchModal] = useState(false);
@@ -321,6 +406,14 @@ export default function Navbar() {
                   <span className="nav__account-name" title={user?.email}>
                     {t.nav.hello}, {user?.displayName || user?.email?.split('@')[0]}
                   </span>
+                  <NavLink to="/admin" className="nav__icon-btn" aria-label={t.auth.dashboard} title={t.auth.dashboard} onClick={() => setOpen(false)}>
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="14" width="7" height="7"></rect>
+                      <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                  </NavLink>
                   <button type="button" className="nav__icon-btn" aria-label={t.nav.logout} onClick={handleLogout} title={t.nav.logout}>
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -440,12 +533,19 @@ export default function Navbar() {
         isOpen={showLoginModal}
         onClose={() => setShowLoginModal(false)}
         onSwitchToSignup={() => { setShowLoginModal(false); setShowSignupModal(true); }}
+        onForgotPassword={() => { setShowLoginModal(false); setShowForgotModal(true); }}
       />
 
       <SignupModal
         isOpen={showSignupModal}
         onClose={() => setShowSignupModal(false)}
         onSwitchToLogin={() => { setShowSignupModal(false); setShowLoginModal(true); }}
+      />
+
+      <ForgotPasswordModal
+        isOpen={showForgotModal}
+        onClose={() => setShowForgotModal(false)}
+        onSwitchToLogin={() => { setShowForgotModal(false); setShowLoginModal(true); }}
       />
     </>
   );

@@ -57,6 +57,7 @@ export default function Services() {
     try {
       await addDoc(collection(db, 'bookings'), {
         ...form,
+        status: 'pending',
         createdAt: serverTimestamp(),
       });
       setStatus('success');
