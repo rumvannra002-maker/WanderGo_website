@@ -11,6 +11,7 @@ function formatDate(ts) {
 export default function Messages() {
   const [items, setItems] = useState(null);
   const [search, setSearch] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const q = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
@@ -25,19 +26,27 @@ export default function Messages() {
   );
 
   const toggleRead = async (m) => {
+    setError('');
     try {
       await updateDoc(doc(db, 'messages', m.id), { read: !m.read });
     } catch (err) {
       console.error(err);
+      setError(err.code === 'permission-denied'
+        ? "Permission denied — your account may not have admin rights, or firestore.rules hasn't been deployed yet."
+        : 'Could not update this message. Please try again.');
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this message?')) return;
+    setError('');
     try {
       await deleteDoc(doc(db, 'messages', id));
     } catch (err) {
       console.error(err);
+      setError(err.code === 'permission-denied'
+        ? "Permission denied — your account may not have admin rights, or firestore.rules hasn't been deployed yet."
+        : 'Could not delete this message. Please try again.');
     }
   };
 
@@ -61,6 +70,7 @@ export default function Messages() {
 
       {items === null && <p className="admin-empty">Loading…</p>}
       {items !== null && filtered.length === 0 && <p className="admin-empty">No messages yet.</p>}
+      {error && <p className="admin-error-text">{error}</p>}
 
       {filtered.map((m) => (
         <div className={`admin-message-card ${!m.read ? 'admin-message-card--unread' : ''}`} key={m.id}>

@@ -23,6 +23,7 @@ export default function Destinations() {
   const [form, setForm] = useState(emptyForm);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
+  const [listError, setListError] = useState('');
 
   useEffect(() => {
     const q = query(collection(db, 'destinations'), orderBy('createdAt', 'desc'));
@@ -87,16 +88,22 @@ export default function Destinations() {
     } catch (err) {
       console.error(err);
       setStatus('idle');
-      setError('Could not save this destination. Please try again.');
+      setError(err.code === 'permission-denied'
+        ? "Permission denied — your account may not have admin rights, or firestore.rules hasn't been deployed yet."
+        : 'Could not save this destination. Please try again.');
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this destination? This cannot be undone.')) return;
+    setListError('');
     try {
       await deleteDoc(doc(db, 'destinations', id));
     } catch (err) {
       console.error(err);
+      setListError(err.code === 'permission-denied'
+        ? "Permission denied — your account may not have admin rights, or firestore.rules hasn't been deployed yet."
+        : 'Could not delete this destination. Please try again.');
     }
   };
 
@@ -120,6 +127,8 @@ export default function Destinations() {
           <Plus size={16} /> Add Destination
         </button>
       </div>
+
+      {listError && <p className="admin-error-text">{listError}</p>}
 
       <div className="admin-table-wrap">
         <table className="admin-table">

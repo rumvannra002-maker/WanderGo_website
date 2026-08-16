@@ -13,6 +13,7 @@ const STATUSES = ['pending', 'confirmed', 'completed', 'cancelled'];
 export default function Bookings() {
   const [items, setItems] = useState(null);
   const [search, setSearch] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
@@ -26,19 +27,27 @@ export default function Bookings() {
   );
 
   const handleStatusChange = async (id, statusValue) => {
+    setError('');
     try {
       await updateDoc(doc(db, 'bookings', id), { status: statusValue });
     } catch (err) {
       console.error(err);
+      setError(err.code === 'permission-denied'
+        ? "Permission denied — your account may not have admin rights, or firestore.rules hasn't been deployed yet."
+        : 'Could not update this booking. Please try again.');
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this booking?')) return;
+    setError('');
     try {
       await deleteDoc(doc(db, 'bookings', id));
     } catch (err) {
       console.error(err);
+      setError(err.code === 'permission-denied'
+        ? "Permission denied — your account may not have admin rights, or firestore.rules hasn't been deployed yet."
+        : 'Could not delete this booking. Please try again.');
     }
   };
 
@@ -59,6 +68,8 @@ export default function Bookings() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+
+      {error && <p className="admin-error-text">{error}</p>}
 
       <div className="admin-table-wrap">
         <table className="admin-table">

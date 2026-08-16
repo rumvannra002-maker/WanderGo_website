@@ -26,6 +26,7 @@ export default function Packages() {
   const [form, setForm] = useState(emptyForm);
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
+  const [listError, setListError] = useState('');
 
   useEffect(() => {
     const q = query(collection(db, 'packages'), orderBy('createdAt', 'desc'));
@@ -86,16 +87,22 @@ export default function Packages() {
     } catch (err) {
       console.error(err);
       setStatus('idle');
-      setError('Could not save this package. Please try again.');
+      setError(err.code === 'permission-denied'
+        ? "Permission denied — your account may not have admin rights, or firestore.rules hasn't been deployed yet."
+        : 'Could not save this package. Please try again.');
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this package? This cannot be undone.')) return;
+    setListError('');
     try {
       await deleteDoc(doc(db, 'packages', id));
     } catch (err) {
       console.error(err);
+      setListError(err.code === 'permission-denied'
+        ? "Permission denied — your account may not have admin rights, or firestore.rules hasn't been deployed yet."
+        : 'Could not delete this package. Please try again.');
     }
   };
 
@@ -119,6 +126,8 @@ export default function Packages() {
           <Plus size={16} /> Add Package
         </button>
       </div>
+
+      {listError && <p className="admin-error-text">{listError}</p>}
 
       <div className="admin-table-wrap">
         <table className="admin-table">
