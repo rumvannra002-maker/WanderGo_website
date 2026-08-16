@@ -1,12 +1,15 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 // Gates /admin/*. Anyone can browse the public site, but only a signed-in
-// account (see AuthContext — every signup is an Admin/User) can reach the
-// dashboard. Firestore rules enforce this server-side too; this is just the
-// client-side redirect for a clean UX.
+// account with role "admin" can reach the dashboard. A logged-in "user"
+// account is redirected home the same as a logged-out visitor — signing up
+// no longer grants dashboard access by itself; an existing admin has to
+// promote the account from Admin > Users. Firestore rules enforce the same
+// role check server-side; this is just the client-side redirect for a
+// clean UX.
 export default function ProtectedRoute({ children }) {
-  const { isLoggedIn, loading } = useAuth();
+  const { isAdmin, loading } = useAuth();
 
   if (loading) {
     return (
@@ -16,7 +19,7 @@ export default function ProtectedRoute({ children }) {
     );
   }
 
-  if (!isLoggedIn) {
+  if (!isAdmin) {
     return <Navigate to="/" replace />;
   }
 

@@ -25,22 +25,31 @@ pages from the assignment brief: Home, About, Services, Contact.
   opens a form to email a Firebase password-reset link (no custom email
   server needed).
 - **Admin Dashboard (`/admin`)** — a separate, sidebar-driven dashboard
-  (Overview, Destinations, Bookings, Messages, Users) for any signed-in
-  account. Overview shows live stat cards (destination count, pending
-  bookings, unread messages, registered users) plus recent activity.
-  Destinations supports full CRUD (add/edit/delete); Bookings lets you
-  change a request's status (pending/confirmed/completed/cancelled) or
-  delete it; Messages lets you mark read/unread or delete; Users lists
-  everyone who has signed up. Reachable from the Navbar's dashboard icon
-  once logged in, or directly at `/admin` — logged-out visitors are
+  (Overview, Destinations, Packages, Bookings, Messages, Users) for
+  **admin** accounts only. Overview shows live stat cards (destination/
+  package counts, pending bookings, unread messages, registered users +
+  admin count) plus recent activity. Destinations and Packages each support
+  full CRUD (add/edit/delete); Bookings lets you change a request's status
+  (pending/confirmed/completed/cancelled) or delete it; Messages lets you
+  mark read/unread or delete; Users lists everyone who has signed up and
+  lets an admin promote/demote a role or remove an account. Reachable from
+  the Navbar's dashboard icon once logged in as an admin, or directly at
+  `/admin` — logged-out visitors *and* signed-in non-admin users are
   redirected to the homepage (and `firestore.rules` enforces the same
   server-side).
-- **Reader vs Admin/User access** — anyone can browse the site freely. Only
-  a signed-in account can add ("Post") or delete a destination on the Home
-  page's "Popular Destinations" section — that's the site's editable content.
-  The Add/Delete buttons are hidden for logged-out visitors, and
-  `firestore.rules` (included) enforces the same rule on the server, since
-  UI-only gating can always be bypassed from a browser console.
+- **Reader vs User vs Admin access** — three tiers. Anyone can browse the
+  site freely (Reader). Signing up creates a plain **User** account that
+  can browse the same as a Reader but still can't reach `/admin` or edit
+  site content. Only an **Admin** account can add/delete a destination or
+  package, manage bookings/messages, and manage other users' roles. The
+  very first person to ever sign up on a fresh Firestore project becomes
+  admin automatically (bootstrapped via a `meta/bootstrap` flag doc, since
+  the signing-up visitor isn't authenticated yet and can't query the users
+  collection); every signup after that starts as a plain User and has to be
+  promoted from Admin > Users. All of this is enforced both in the UI (the
+  Add/Delete/dashboard controls are hidden for non-admins) and, more
+  importantly, server-side in `firestore.rules`, since UI-only gating can
+  always be bypassed from a browser console.
 
 ## Pages implemented
 | Page | Sections |
@@ -93,10 +102,12 @@ will show in the browser console).
    buttons is only a convenience, not real security on its own.
 
 ### Firestore structure
-- `destinations` — { title, price, image, description, rating, participants, places, galleryImages, createdAt } — public read, signed-in create/delete
-- `bookings` — { name, phone, packageName, date, createdAt } — public create, signed-in read/manage
-- `messages` — { fullName, email, phone, message, createdAt } — public create, signed-in read/manage
-- `users` — { username, email, role, createdAt } — created automatically on signup
+- `destinations` — { title, price, image, description, rating, participants, places, galleryImages, createdAt } — public read, admin create/update/delete
+- `packages` — { name, duration, price, desc, badge, createdAt } — public read, admin create/update/delete (falls back to the built-in translated packages on the Home page until one is added)
+- `bookings` — { name, phone, packageName, date, status, createdAt } — public create, admin read/manage
+- `messages` — { fullName, email, phone, message, read, createdAt } — public create, admin read/manage
+- `users` — { username, email, role ('admin' | 'user'), createdAt } — created automatically on signup; `role` can only be changed by an existing admin (from Admin > Users), not by the user themself
+- `meta/bootstrap` — { adminCreated: boolean } — single public flag doc used only to grant the very first signup admin access; publicly readable, write-once (true → true only)
 
 ## Build for production
 
@@ -116,6 +127,10 @@ token system.
 
 ## Next steps
 
-- Richer role management (e.g. a distinct "editor" vs "super admin" role,
-  currently every signed-in account can post/delete)
+- Deleting a user from Admin > Users only removes their Firestore profile
+  doc (revoking dashboard/content access); it doesn't delete their
+  underlying Firebase Auth sign-in account, which would require the Admin
+  SDK via a Cloud Function.
+- A distinct "editor" vs "super admin" role, if content-only access without
+  user-management rights is ever needed.
 

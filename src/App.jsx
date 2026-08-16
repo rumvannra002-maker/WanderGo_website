@@ -9,6 +9,7 @@ import Contact from './pages/Contact';
 import AdminLayout from './pages/admin/AdminLayout';
 import Overview from './pages/admin/Overview';
 import AdminDestinations from './pages/admin/Destinations';
+import AdminPackages from './pages/admin/Packages';
 import AdminBookings from './pages/admin/Bookings';
 import AdminMessages from './pages/admin/Messages';
 import AdminUsers from './pages/admin/Users';
@@ -37,6 +38,7 @@ export default function App() {
           >
             <Route index element={<Overview />} />
             <Route path="destinations" element={<AdminDestinations />} />
+            <Route path="packages" element={<AdminPackages />} />
             <Route path="bookings" element={<AdminBookings />} />
             <Route path="messages" element={<AdminMessages />} />
             <Route path="users" element={<AdminUsers />} />

@@ -17,6 +17,7 @@ const STATUS_LABEL = {
 
 export default function Overview() {
   const [destinations, setDestinations] = useState([]);
+  const [packages, setPackages] = useState([]);
   const [bookings, setBookings] = useState([]);
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
@@ -25,6 +26,9 @@ export default function Overview() {
     const unsubs = [
       onSnapshot(query(collection(db, 'destinations'), orderBy('createdAt', 'desc')), (s) =>
         setDestinations(s.docs.map((d) => ({ id: d.id, ...d.data() })))
+      ),
+      onSnapshot(query(collection(db, 'packages'), orderBy('createdAt', 'desc')), (s) =>
+        setPackages(s.docs.map((d) => ({ id: d.id, ...d.data() })))
       ),
       onSnapshot(query(collection(db, 'bookings'), orderBy('createdAt', 'desc')), (s) =>
         setBookings(s.docs.map((d) => ({ id: d.id, ...d.data() })))
@@ -41,6 +45,7 @@ export default function Overview() {
 
   const pendingBookings = bookings.filter((b) => (b.status || 'pending') === 'pending').length;
   const unreadMessages = messages.filter((m) => !m.read).length;
+  const adminCount = users.filter((u) => u.role === 'admin').length;
 
   return (
     <div>
@@ -55,7 +60,7 @@ export default function Overview() {
         <div className="admin-stat-card">
           <div className="admin-stat-card__label">Destinations</div>
           <div className="admin-stat-card__value">{destinations.length}</div>
-          <div className="admin-stat-card__hint">Live on the site</div>
+          <div className="admin-stat-card__hint">{packages.length} packages live too</div>
         </div>
         <div className="admin-stat-card">
           <div className="admin-stat-card__label">Pending Bookings</div>
@@ -70,7 +75,7 @@ export default function Overview() {
         <div className="admin-stat-card">
           <div className="admin-stat-card__label">Registered Users</div>
           <div className="admin-stat-card__value is-accent">{users.length}</div>
-          <div className="admin-stat-card__hint">Signed-in admins</div>
+          <div className="admin-stat-card__hint">{adminCount} admin{adminCount === 1 ? '' : 's'}, rest are regular users</div>
         </div>
       </div>
 

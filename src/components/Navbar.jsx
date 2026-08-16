@@ -307,7 +307,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { lang, setLang, t } = useLanguage();
-  const { user, isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, isAdmin, logout } = useAuth();
   const [langDropdown, setLangDropdown] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignupModal, setShowSignupModal] = useState(false);
@@ -406,14 +406,16 @@ export default function Navbar() {
                   <span className="nav__account-name" title={user?.email}>
                     {t.nav.hello}, {user?.displayName || user?.email?.split('@')[0]}
                   </span>
-                  <NavLink to="/admin" className="nav__icon-btn" aria-label={t.auth.dashboard} title={t.auth.dashboard} onClick={() => setOpen(false)}>
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect x="3" y="3" width="7" height="7"></rect>
-                      <rect x="14" y="3" width="7" height="7"></rect>
-                      <rect x="14" y="14" width="7" height="7"></rect>
-                      <rect x="3" y="14" width="7" height="7"></rect>
-                    </svg>
-                  </NavLink>
+                  {isAdmin && (
+                    <NavLink to="/admin" className="nav__icon-btn" aria-label={t.auth.dashboard} title={t.auth.dashboard} onClick={() => setOpen(false)}>
+                      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                      </svg>
+                    </NavLink>
+                  )}
                   <button type="button" className="nav__icon-btn" aria-label={t.nav.logout} onClick={handleLogout} title={t.nav.logout}>
                     <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>

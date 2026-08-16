@@ -2,6 +2,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import {
   LayoutGrid,
   Map,
+  Package,
   CalendarCheck,
   MessageSquare,
   Users,
@@ -15,6 +16,7 @@ import './admin.css';
 const links = [
   { to: '/admin', end: true, label: 'Overview', icon: LayoutGrid },
   { to: '/admin/destinations', label: 'Destinations', icon: Map },
+  { to: '/admin/packages', label: 'Packages', icon: Package },
   { to: '/admin/bookings', label: 'Bookings', icon: CalendarCheck },
   { to: '/admin/messages', label: 'Messages', icon: MessageSquare },
   { to: '/admin/users', label: 'Users', icon: Users },

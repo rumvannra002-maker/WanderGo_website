@@ -109,7 +109,7 @@ const emptyDestForm = { title: '', price: '', image: '', description: '', rating
 
 export default function Home() {
   const { t } = useLanguage();
-  const { isLoggedIn } = useAuth();
+  const { isAdmin } = useAuth();
   const h = t.home;
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -130,6 +130,25 @@ export default function Home() {
       });
     }
   }, [searchParams, setSearchParams]);
+
+  // Firestore-backed packages/products. Falls back to the built-in
+  // translated list until an admin adds at least one via Admin > Packages.
+  const [firestorePackages, setFirestorePackages] = useState(null);
+
+  useEffect(() => {
+    const q = query(collection(db, 'packages'), orderBy('createdAt', 'desc'));
+    const unsubscribe = onSnapshot(
+      q,
+      (snapshot) => setFirestorePackages(snapshot.docs.map((d) => ({ id: d.id, ...d.data() }))),
+      (err) => {
+        console.error('Failed to load packages', err);
+        setFirestorePackages([]);
+      }
+    );
+    return unsubscribe;
+  }, []);
+
+  const packageItems = firestorePackages && firestorePackages.length > 0 ? firestorePackages : h.packages.items;
 
   // Firestore-backed destinations ("posts")
   const [firestoreDestinations, setFirestoreDestinations] = useState(null);
@@ -176,7 +195,7 @@ export default function Home() {
 
   const handleAddDestination = async (e) => {
     e.preventDefault();
-    if (!isLoggedIn) return;
+    if (!isAdmin) return;
     setDestStatus('saving');
     try {
       await addDoc(collection(db, 'destinations'), {
@@ -195,7 +214,7 @@ export default function Home() {
   };
 
   const handleDeleteDestination = async (id) => {
-    if (!isLoggedIn) return;
+    if (!isAdmin) return;
     if (!window.confirm(h.destinations.deleteConfirm)) return;
     try {
       await deleteDoc(doc(db, 'destinations', id));
@@ -370,7 +389,7 @@ export default function Home() {
             <h2 className="section-title">{h.destinations.title}</h2>
           </div>
 
-          {isLoggedIn ? (
+          {isAdmin ? (
             <button type="button" className="btn btn--outline dest-manage-btn" onClick={() => setShowAddForm((v) => !v)}>
               {showAddForm ? h.destinations.cancel : h.destinations.addNew}
             </button>
@@ -379,7 +398,7 @@ export default function Home() {
           )}
         </div>
 
-        {showAddForm && isLoggedIn && (
+        {showAddForm && isAdmin && (
           <form className="card dest-add-form" onSubmit={handleAddDestination}>
             <div className="dest-add-form__grid">
               <label>
@@ -439,7 +458,7 @@ export default function Home() {
                   </svg>
                 </button>
 
-                {isLoggedIn && !usingFallback && (
+                {isAdmin && !usingFallback && (
                   <button
                     type="button"
                     className="dest-card__delete"
@@ -491,8 +510,8 @@ export default function Home() {
             <h2>{h.packages.title}</h2>
           </div>
           <div className="grid grid--3">
-            {h.packages.items.map((p) => (
-              <div className="pkg-card" key={p.name}>
+            {packageItems.map((p) => (
+              <div className="pkg-card" key={p.id || p.name}>
                 {p.badge && <span className="pkg-card__badge">{p.badge}</span>}
                 <div className="pkg-card__meta">
                   <span>📅 {p.duration}</span>
