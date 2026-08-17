@@ -39,7 +39,7 @@ export default function AdminLayout() {
         <div className="admin-sidebar__brand">
           <TowerSkyline variant="mark" color="var(--cream)" />
           <div>
-            <strong>Angkor Trails</strong>
+            <strong>WanderGo</strong>
             <span>Admin</span>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function AdminLayout() {
           </div>
           <NavLink to="/" className="admin-nav-link admin-nav-link--muted">
             <Home size={18} />
-            <span>View Store</span>
+            <span>View Tourism</span>
           </NavLink>
           <button type="button" className="admin-nav-link admin-nav-link--danger" onClick={handleLogout}>
             <LogOut size={18} />
